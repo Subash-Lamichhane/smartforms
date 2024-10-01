@@ -34,6 +34,14 @@ const resultSchema = new mongoose.Schema({
             score: {
                 type: Number,
                 required: true
+            },
+            correctAnswersCount: {  
+                type: Number,
+                required: true
+            },
+            incorrectAnswersCount: {  
+                type: Number,
+                required: true
             }
         }
     ]

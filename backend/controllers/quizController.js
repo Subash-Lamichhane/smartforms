@@ -20,7 +20,7 @@ exports.getQuizById = async (req, res) => {
 
     try {
         // Find quiz by MongoDB _id
-        const quiz = await Quiz.findById(id).lean();  // Using lean() for a plain JavaScript object
+        const quiz = await Quiz.findById(id).lean();  
 
         if (!quiz) {
             return res.status(404).json({ message: 'Quiz not found.' });
@@ -30,12 +30,11 @@ exports.getQuizById = async (req, res) => {
         const sanitizedQuiz = {
             ...quiz,
             questions: quiz.questions.map((q) => {
-                const { answer, ...rest } = q.toObject ? q.toObject() : q;  // Remove answer field
+                const { answer, ...rest } = q.toObject ? q.toObject() : q; 
                 return rest;
             }),
         };
 
-        // Send the sanitized quiz (without answers)
         res.json(sanitizedQuiz);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -45,7 +44,7 @@ exports.getQuizById = async (req, res) => {
 
 // API to submit answers and calculate results
 exports.submitQuiz = async (req, res) => {
-    const { quizId, studentName, answers } = req.body; // answers is now a flat array
+    const { quizId, studentName, answers } = req.body; 
 
     try {
         // Find the quiz by its ID
@@ -54,8 +53,10 @@ exports.submitQuiz = async (req, res) => {
             return res.status(404).json({ message: 'Quiz not found.' });
         }
 
-        // Calculate the score
+        // Calculate the score, correct answers, and incorrect answers
         let score = 0;
+        let correctAnswersCount = 0;
+        let incorrectAnswersCount = 0;
         const correctAnswers = quiz.questions.map(q => q.answer);
         const totalQuestions = quiz.questions.length;
 
@@ -63,7 +64,10 @@ exports.submitQuiz = async (req, res) => {
         answers.forEach((submittedAnswer, index) => {
             const correctAnswer = correctAnswers[index];
             if (submittedAnswer === correctAnswer) {
-                score += 1; // Increment score for each correct answer
+                correctAnswersCount += 1; 
+                score += 1;               
+            } else {
+                incorrectAnswersCount += 1; 
             }
         });
 
@@ -72,25 +76,33 @@ exports.submitQuiz = async (req, res) => {
         // Check if result for this quiz already exists
         let result = await Result.findOne({ quizId });
         if (!result) {
-            // If no result exists, create a new one
             result = new Result({
                 quizId,
                 students: []
             });
         }
 
-        // Add student name and score to results
-        result.students.push({ name: studentName, score: percentageScore });
+        // Add student name, score, correct/incorrect answers to results
+        result.students.push({ 
+            name: studentName, 
+            score: percentageScore,
+            correctAnswersCount,   
+            incorrectAnswersCount  
+        });
+
         await result.save();
 
         res.status(201).json({
             message: 'Quiz submitted successfully.',
-            score: percentageScore
+            score: percentageScore,
+            correctAnswersCount,   
+            incorrectAnswersCount  
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 // API to fetch quiz results by quiz ID and password
 exports.getQuizResults = async (req, res) => {
@@ -109,7 +121,7 @@ exports.getQuizResults = async (req, res) => {
             return res.status(404).json({ message: 'No results found for this quiz.' });
         }
 
-        // Return the results
+        // Return the results, including correct and incorrect answers count
         res.json(result.students);
     } catch (error) {
         res.status(500).json({ message: error.message });
