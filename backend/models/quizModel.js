@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 
 const quizSchema = new mongoose.Schema({
-    identifier: { 
+    name: { 
         type: String, 
         required: true, 
-        unique: true 
+    },
+    password: { 
+        type: String, 
+        required: true, 
     },
     questions: [
         {
@@ -16,6 +19,27 @@ const quizSchema = new mongoose.Schema({
     ]
 });
 
-const Quiz = mongoose.model('Quiz', quizSchema);
+const resultSchema = new mongoose.Schema({
+    quizId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Quiz',
+        required: true
+    },
+    students: [
+        {
+            name: {
+                type: String,
+                required: true
+            },
+            score: {
+                type: Number,
+                required: true
+            }
+        }
+    ]
+});
 
-module.exports = Quiz;
+const Quiz = mongoose.model('Quiz', quizSchema);
+const Result = mongoose.model('Result', resultSchema);
+
+module.exports = { Quiz, Result };

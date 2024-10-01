@@ -1,91 +1,114 @@
-const Quiz = require('../models/quizModel');
-const { CopilotRuntime, GoogleGenerativeAIAdapter, copilotRuntimeNodeHttpEndpoint } = require("@copilotkit/runtime");
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+// ./controllers/quizController.js
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+const { Quiz, Result } = require('../models/quizModel'); 
 
 // Add a new quiz
 exports.addQuiz = async (req, res) => {
-    const { identifier, questions } = req.body;
+    const { name, password, questions } = req.body;
 
     try {
-        const existingQuiz = await Quiz.findOne({ identifier });
-        if (existingQuiz) {
-            return res.status(400).json({ message: 'Quiz with this identifier already exists.' });
-        }
-
-        const newQuiz = new Quiz({ identifier, questions });
+        const newQuiz = new Quiz({ name, password, questions });
         await newQuiz.save();
-        res.status(201).json(newQuiz);
+        res.status(201).json(newQuiz); 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
-// Get a quiz by identifier
-exports.getQuizByIdentifier = async (req, res) => {
-    const { identifier } = req.params;
+exports.getQuizById = async (req, res) => {
+    const { id } = req.params;
 
     try {
-        const quiz = await Quiz.findOne({ identifier });
+        // Find quiz by MongoDB _id
+        const quiz = await Quiz.findById(id).lean();  // Using lean() for a plain JavaScript object
+
         if (!quiz) {
             return res.status(404).json({ message: 'Quiz not found.' });
         }
 
-        res.json(quiz);
+        // Modify quiz object to remove 'answer' from each question
+        const sanitizedQuiz = {
+            ...quiz,
+            questions: quiz.questions.map((q) => {
+                const { answer, ...rest } = q.toObject ? q.toObject() : q;  // Remove answer field
+                return rest;
+            }),
+        };
+
+        // Send the sanitized quiz (without answers)
+        res.json(sanitizedQuiz);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
 
-exports.deleteQuizByIdentifier = async (req, res) => {
-    const { identifier } = req.params
+// API to submit answers and calculate results
+exports.submitQuiz = async (req, res) => {
+    const { quizId, studentName, answers } = req.body; // answers is now a flat array
+
     try {
-        const quiz = await Quiz.findOneAndDelete({ identifier });
+        // Find the quiz by its ID
+        const quiz = await Quiz.findById(quizId);
         if (!quiz) {
             return res.status(404).json({ message: 'Quiz not found.' });
         }
 
-        return res.status(200).json({ message: 'Quiz successfully deleted.' });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-}
+        // Calculate the score
+        let score = 0;
+        const correctAnswers = quiz.questions.map(q => q.answer);
 
-exports.updateQuiz = async (req, res) => {
-    const { identifier } = req.params;
-    const { questions } = req.body;
-    try {
-        const quiz = await Quiz.findOneAndUpdate(
-            { identifier },
-            { questions },
-            { new: true, runValidators: true }
-        );
+        // Check answers against correct answers
+        answers.forEach((submittedAnswer, index) => {
+            const correctAnswer = correctAnswers[index];
+            if (submittedAnswer === correctAnswer) {
+                score += 1; // Increment score for each correct answer
+            }
+        });
 
-        if (!quiz) {
-            return res.status(404).json({ message: 'Quiz not found.' });
+        // Check if result for this quiz already exists
+        let result = await Result.findOne({ quizId });
+        if (!result) {
+            // If no result exists, create a new one
+            result = new Result({
+                quizId,
+                students: []
+            });
         }
-        res.json(quiz);
+
+        // Add student name and score to results
+        result.students.push({ name: studentName, score });
+        await result.save();
+
+        res.status(201).json({
+            message: 'Quiz submitted successfully.',
+            score
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
-// exports.copilotKitProvider = async (req, res) => {
-//     // Initialize the GoogleGenerativeAIAdapter with the genAI instance
-//     const serviceAdapter = new GoogleGenerativeAIAdapter({ model: genAI.getGenerativeModel({ model: "gemini-pro" }) });
+// API to fetch quiz results by quiz ID and password
+exports.getQuizResults = async (req, res) => {
+    const { quizId, password } = req.body;
 
-//     // Initialize the CopilotRuntime
-//     const runtime = new CopilotRuntime();
+    try {
+        // Find the quiz by its ID and password
+        const quiz = await Quiz.findById(quizId);
+        if (!quiz || quiz.password !== password) {
+            return res.status(401).json({ message: 'Invalid quiz ID or password.' });
+        }
 
-//     // Set up the handler for the Copilot Kit endpoint
-//     const handler = copilotRuntimeNodeHttpEndpoint({
-//         endpoint: "/api", // Ensure the endpoint matches your request route
-//         runtime,
-//         serviceAdapter,
-//     });
+        // Find the result for the quiz
+        const result = await Result.findOne({ quizId });
+        if (!result) {
+            return res.status(404).json({ message: 'No results found for this quiz.' });
+        }
 
-//     // Return the handler, which processes the request
-//     return handler(req, res);
-// }
+        // Return the results
+        res.json(result.students);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
