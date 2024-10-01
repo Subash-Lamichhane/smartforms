@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useCopilotReadable, useCopilotAction } from "@copilotkit/react-core";
-import { useCopilotChatSuggestions } from "@copilotkit/react-ui";
 import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotPopup } from "@copilotkit/react-ui";
 import "@copilotkit/react-ui/styles.css";
 
 const QuizGenerationPage = () => {
     return (
-        <CopilotKit runtimeUrl="http://localhost:3000/api/quiz/copilotkit">
+        <CopilotKit runtimeUrl="http://localhost:3000/api">
             <div
                 style={{
                     "--copilot-kit-primary-color": "black",
@@ -26,14 +25,7 @@ const QuizGenerationPage = () => {
 };
 
 const QuizGenerationPageExtend = () => {
-    const [quizzes, setQuizzes] = useState([
-        {
-            question: "What is the value of 2 + x = 4?",
-            options: ["1", "2", "3", "4"],
-            hint: "Subtract 2 from 4.",
-            answer: "2",
-        },
-    ]);
+    const [quizzes, setQuizzes] = useState([]);
 
     console.log(quizzes);
 
@@ -42,13 +34,9 @@ const QuizGenerationPageExtend = () => {
         value: quizzes,
     });
 
-    useCopilotChatSuggestions({
-        instructions: `The user is creating different types of quizzes.`,
-    });
-
     useCopilotAction({
         name: "newQuestions",
-        description: "Provide MCQ quizzes based on conditions given. If number of questions are not specified provide 10 of them. Do not tell questions and options in chat.",
+        description: "Provide quizzes in MCQ format based on conditions given. Do not tell questions and options in chat. Generate only the number of questions asked in the chat.",
         parameters: [
             {
                 name: "newQuizzes",
@@ -68,13 +56,18 @@ const QuizGenerationPageExtend = () => {
                     {
                         name: 'hint',
                         type: 'string',
+                        description: 'The hint to the question.'
+                    },
+                    {
+                        name: 'answer',
+                        type: 'string',
                         description: 'Correct answer among options.'
                     },
                 ]
             },
         ],
         handler: ({ newQuizzes }) => {
-            setQuizzes(newQuizzes);
+            setQuizzes(prevQuizzes => [...prevQuizzes, ...newQuizzes]);
         },
     });
 

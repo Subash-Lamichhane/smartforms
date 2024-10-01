@@ -1,5 +1,5 @@
 const express = require('express');
-const { addQuiz, getQuizByIdentifier, updateQuiz, deleteQuizByIdentifier, copilotKitProvider } = require('../controllers/quizController');
+const { addQuiz, getQuizByIdentifier, updateQuiz, deleteQuizByIdentifier } = require('../controllers/quizController');
 
 const router = express.Router();
 
@@ -33,5 +33,5 @@ router.put('/:identifier', updateQuiz);
 router.delete('/:identifier', deleteQuizByIdentifier);
 
 
-router.post('/copilotkit', copilotKitProvider)
+// router.post('/copilotkit', copilotKitProvider)
 module.exports = router;

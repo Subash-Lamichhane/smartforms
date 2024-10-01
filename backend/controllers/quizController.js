@@ -72,20 +72,20 @@ exports.updateQuiz = async (req, res) => {
     }
 };
 
-exports.copilotKitProvider = async (req, res) => {
-    // Initialize the GoogleGenerativeAIAdapter with the genAI instance
-    const serviceAdapter = new GoogleGenerativeAIAdapter({ model: genAI.getGenerativeModel({ model: "gemini-pro" }) });
+// exports.copilotKitProvider = async (req, res) => {
+//     // Initialize the GoogleGenerativeAIAdapter with the genAI instance
+//     const serviceAdapter = new GoogleGenerativeAIAdapter({ model: genAI.getGenerativeModel({ model: "gemini-pro" }) });
 
-    // Initialize the CopilotRuntime
-    const runtime = new CopilotRuntime();
+//     // Initialize the CopilotRuntime
+//     const runtime = new CopilotRuntime();
 
-    // Set up the handler for the Copilot Kit endpoint
-    const handler = copilotRuntimeNodeHttpEndpoint({
-        endpoint: "/api", // Ensure the endpoint matches your request route
-        runtime,
-        serviceAdapter,
-    });
+//     // Set up the handler for the Copilot Kit endpoint
+//     const handler = copilotRuntimeNodeHttpEndpoint({
+//         endpoint: "/api", // Ensure the endpoint matches your request route
+//         runtime,
+//         serviceAdapter,
+//     });
 
-    // Return the handler, which processes the request
-    return handler(req, res);
-}
+//     // Return the handler, which processes the request
+//     return handler(req, res);
+// }
