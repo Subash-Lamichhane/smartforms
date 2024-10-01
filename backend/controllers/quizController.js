@@ -57,6 +57,7 @@ exports.submitQuiz = async (req, res) => {
         // Calculate the score
         let score = 0;
         const correctAnswers = quiz.questions.map(q => q.answer);
+        const totalQuestions = quiz.questions.length;
 
         // Check answers against correct answers
         answers.forEach((submittedAnswer, index) => {
@@ -65,6 +66,8 @@ exports.submitQuiz = async (req, res) => {
                 score += 1; // Increment score for each correct answer
             }
         });
+
+        const percentageScore = (score / totalQuestions) * 100;
 
         // Check if result for this quiz already exists
         let result = await Result.findOne({ quizId });
@@ -77,12 +80,12 @@ exports.submitQuiz = async (req, res) => {
         }
 
         // Add student name and score to results
-        result.students.push({ name: studentName, score });
+        result.students.push({ name: studentName, score: percentageScore });
         await result.save();
 
         res.status(201).json({
             message: 'Quiz submitted successfully.',
-            score
+            score: percentageScore
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
