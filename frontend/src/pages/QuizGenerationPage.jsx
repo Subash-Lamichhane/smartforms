@@ -31,59 +31,6 @@ const QuizGenerationPageExtend = () => {
         value: quizzes,
     });
 
-    // useCopilotAction({
-    //     name: "updateQuestion",
-    //     description: "Change or Update the question using question number provided by user.",
-    //     parameters:[{
-    //         name: "updatedQuiz",
-    //         type: "object",
-    //         description: "The new quizzes",
-    //         attributes: [
-    //             {
-    //                 name: 'question',
-    //                 type: 'string',
-    //                 description: 'The quiz question.'
-    //             },
-    //             {
-    //                 name: "options",
-    //                 type: "string[]",
-    //                 description: "The options for quiz",
-    //             },
-    //             {
-    //                 name: 'hint',
-    //                 type: 'string',
-    //                 description: 'The hint to the question.'
-    //             },
-    //             {
-    //                 name: 'answer',
-    //                 type: 'string',
-    //                 description: 'Correct answer among options.'
-    //             },
-    //         ]},
-    //         {
-    //             name:"indexNo",
-    //             type: "number",
-    //             description: "The index number of question to be updated."
-    //         }  
-    //     ],
-    //     handler: async ({ updatedQuiz, indexNo }) => {
-    //         setQuizzes(prevQuizzes => {
-    //             console.log(indexNo)
-    //             if (indexNo < 0 || indexNo >= prevQuizzes.length) {
-    //                 console.error("Invalid index number");
-    //                 return prevQuizzes;
-    //             }
-    
-    //             // Create a new array with the updated question at the specified index
-    //             const updatedQuizzes = [...prevQuizzes];
-    //             updatedQuizzes[indexNo] = updatedQuiz;
-    
-    //             return updatedQuizzes;
-    //         });
-    //         console.log(quizzes)
-    //     }
-    // })
-
     useCopilotReadable({
         description: "This is the set of quizzes: ",
         value: quizzes,
