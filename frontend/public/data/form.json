@@ -1,0 +1,56 @@
+{
+  "_id": "66fbe8c15b7a7ac76585b8ad",
+  "name": "Math Quiz",
+  "password": "myquizpassword",
+  "questions": [
+    {
+      "question": "What is the value of 2 + 2?",
+      "options": ["1", "2", "3", "4"],
+      "hint": "Think of the basic addition.",
+      "_id": "66fbe8c15b7a7ac76585b8ae"
+    },
+    {
+      "question": "What is the capital of France?",
+      "options": ["Berlin", "Madrid", "Paris", "Rome"],
+      "hint": "It's also known as the city of lights.",
+      "_id": "66fbe8c15b7a7ac76585b8af"
+    },
+    {
+      "question": "What is the value of 2 + 2?",
+      "options": ["1", "2", "3", "4"],
+      "hint": "Think of the basic addition.",
+      "_id": "66fbr8c15b7a7ac76585b8ae"
+    },
+    {
+      "question": "What is the capital of France?",
+      "options": ["Berlin", "Madrid", "Paris", "Rome"],
+      "hint": "It's also known as the city of lights.",
+      "_id": "66fre8c15b7a7ac76585b8af"
+    },
+    {
+      "question": "What is the value of 2 + 2?",
+      "options": ["1", "2", "3", "4"],
+      "hint": "Think of the basic addition.",
+      "_id": "66fbe8cd5b7a7ac76585b8ae"
+    },
+    {
+      "question": "What is the capital of France?",
+      "options": ["Berlin", "Madrid", "Paris", "Rome"],
+      "hint": "It's also known as the city of lights.",
+      "_id": "66fbe8c15b7aeac76585b8af"
+    },
+    {
+      "question": "What is the value of 2 + 2?",
+      "options": ["1", "2", "3", "4"],
+      "hint": "Think of the basic addition.",
+      "_id": "66fbr8c15b7a7at76585b8ae"
+    },
+    {
+      "question": "What is the capital of France?",
+      "options": ["Berlin", "Madrid", "Paris", "Rome"],
+      "hint": "It's also known as the city of lights.",
+      "_id": "66fre8c15b7a7ac76485b8af"
+    }
+  ],
+  "__v": 0
+}
