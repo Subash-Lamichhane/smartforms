@@ -1,11 +1,27 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import QuizGenerationPage from "./pages/QuizGenerationPage";
+import LandingPage from "./pages/LandingPage";
+import SmartFormEntry from "./components/SmartFormEntry";
+import NavBar from "./components/NavBar";
+import SmartForm from "./pages/SmartForm";
+
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<QuizGenerationPage/>} />
-        
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/create-smartforms" element={<QuizGenerationPage />} />
+        <Route path="/smartforms/:id" element={<SmartForm />} />
+        <Route
+          path="/smartforms"
+          element={
+            <>
+              <NavBar />
+              <SmartFormEntry />
+            </>
+          }
+        />
       </Routes>
     </Router>
   );
