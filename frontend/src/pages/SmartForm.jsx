@@ -6,8 +6,11 @@ import NavBar from "../components/NavBar";
 import axios from "axios";
 import FormResult from "../components/FormResult";
 import UserNameEntry from "../components/UserNameEntry"; // Import UserNameEntry component
+import { useParams } from "react-router-dom";
 
 const SmartForm = () => {
+  const {id} = useParams();
+
   const [smartFormData, setSmartFormData] = useState(null); // Store the smartForm data from the API
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Track the current question index
   const [selectedOption, setSelectedOption] = useState(null); // Store the selected option
@@ -21,7 +24,7 @@ const SmartForm = () => {
   useEffect(() => {
     const fetchSmartFormData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/quiz/66fbe8c15b7a7ac76585b8ad");
+        const response = await axios.get(`http://localhost:3000/quiz/${id}`);
         setSmartFormData(response.data); // Save the smartForm data
         setProgress(0); // Initialize the progress bar
       } catch (error) {
