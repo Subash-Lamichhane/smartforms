@@ -5,6 +5,7 @@ import { CopilotPopup } from "@copilotkit/react-ui";
 import { FaCheckCircle } from "react-icons/fa"; // Importing the tick mark icon
 import { IoCreate } from "react-icons/io5";
 import "@copilotkit/react-ui/styles.css";
+import { MdEdit } from "react-icons/md";
 
 const GenerateSmartForm = () => {
   return (
@@ -100,11 +101,11 @@ const GenerateSmartFormExtend = () => {
     const updatedQuizzes = quizzes.map((quiz, idx) =>
       idx === questionIndex
         ? {
-            ...quiz,
-            options: quiz.options.map((option, idx2) =>
-              idx2 === editing.optionIndex ? tempOption : option
-            ),
-          }
+          ...quiz,
+          options: quiz.options.map((option, idx2) =>
+            idx2 === editing.optionIndex ? tempOption : option
+          ),
+        }
         : quiz
     );
     setQuizzes(updatedQuizzes);
@@ -132,7 +133,7 @@ const GenerateSmartFormExtend = () => {
         {quizzes.length > 0 ? (
           quizzes.map((quiz, index) => (
             <div key={index} className="bg-white p-4 rounded-md shadow-sm">
-              {editing.questionIndex === index ? (
+              {editing.questionIndex === index && !editing.optionIndex && editing.optionIndex != 0 ? (
                 <div>
                   <input
                     type="text"
@@ -148,20 +149,22 @@ const GenerateSmartFormExtend = () => {
                   </button>
                 </div>
               ) : (
-                <h3
-                  onDoubleClick={() => handleQuestionEdit(index)}
-                  className="text-xl font-bold text-gray-800 mb-2 cursor-pointer"
-                >
-                  {index + 1}. {quiz.question}
-                </h3>
+                <div className=" flex justify-between group cursor-pointer">
+                  <h3
+                    onDoubleClick={() => handleQuestionEdit(index)}
+                    className="text-xl font-bold text-gray-800 mb-2 cursor-pointer"
+                  >
+                    {index + 1}. {quiz.question}
+                  </h3>
+                  <div className="mr-4 text-xl cursor-pointer text-gray-800 hidden group-hover:block" onClick={() => { handleQuestionEdit(index) }}><MdEdit /></div>
+                </div>
               )}
               <div className="grid grid-cols-2 gap-3">
                 {quiz.options.map((option, idx) => (
                   <div
                     key={idx}
-                    className={`p-3 rounded-md flex items-center text-gray-700 ${
-                      option === quiz.answer ? "bg-green-50" : "bg-gray-100"
-                    }`}
+                    className={`p-3 rounded-md flex items-center text-gray-700 ${option === quiz.answer ? "bg-green-50" : "bg-gray-100"
+                      }`}
                   >
                     {editing.optionIndex === idx && editing.questionIndex === index ? (
                       <div className="flex items-center">
@@ -179,18 +182,21 @@ const GenerateSmartFormExtend = () => {
                         </button>
                       </div>
                     ) : (
-                      <div
-                        onDoubleClick={() => handleOptionEdit(index, idx)}
-                        className="flex items-center cursor-pointer"
-                      >
-                        {option === quiz.answer ? (
-                          <FaCheckCircle className="text-green-500 mr-2" />
-                        ) : (
-                          <span className="bg-custom-blue/10 text-custom-blue w-6 h-6 flex items-center justify-center rounded-md mr-2 text-sm">
-                            {idx + 1}
-                          </span>
-                        )}
-                        <span className="text-sm">{option}</span>
+                      <div className="flex justify-between w-full group cursor-pointer">
+                        <div
+                          onDoubleClick={() => handleOptionEdit(index, idx)}
+                          className="flex items-center cursor-pointer"
+                        >
+                          {option === quiz.answer ? (
+                            <FaCheckCircle className="text-green-500 mr-2" />
+                          ) : (
+                            <span className="bg-custom-blue/10 text-custom-blue w-6 h-6 flex items-center justify-center rounded-md mr-2 text-sm">
+                              {idx + 1}
+                            </span>
+                          )}
+                          <span className="text-sm">{option}</span>
+                        </div>
+                        <div className="mr-4 text-xl cursor-pointer text-gray-800 hidden group-hover:block" onClick={() => { handleOptionEdit(index, idx) }}><MdEdit /></div>
                       </div>
                     )}
                   </div>
