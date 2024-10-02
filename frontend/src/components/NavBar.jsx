@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <div className="px-96 py-6 shadow-md flex justify-between items-center bg-white">
+    <div className="px-24 lg:px-96 py-6 shadow-md flex justify-between items-center bg-white">
         <Link to="/">
       <div className="text-2xl font-black flex gap-4 justify-center items-center">
           <SiFormspree />

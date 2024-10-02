@@ -16,7 +16,7 @@ const FormResult = ({
   score,
 }) => {
   return (
-    <div className="w-full h-[80vh] flex flex-col justify-center items-start space-y-16 px-8">
+    <div className="mt-[15rem] md:my-0 w-full h-[80vh] flex flex-col justify-center items-start space-y-16 px-8">
       {/* Message above heading */}
       <div>
         <div className="flex ">

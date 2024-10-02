@@ -2,7 +2,7 @@ import { SiFormspree } from "react-icons/si";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-10 px-4 lg:px-96">
+    <footer className="bg-black text-white py-10 px-4  lg:px-96">
       <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start space-y-6 lg:space-y-0">
         {/* Logo and CTA */}
         <div className="flex flex-col space-y-4 items-center lg:items-start">

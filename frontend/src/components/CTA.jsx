@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CTA = () => {
   return (
-    <div className="px-96 flex justify-center items-center my-24">
+    <div className="px-24 lg:px-96 flex justify-center items-center my-24">
       <div className="bg-custom-blue/10 py-10 rounded-3xl flex w-full flex-col justify-center items-center px-8 lg:px-32 space-y-6">
         <h2 className="text-4xl font-extrabold text-gray-900 text-center">
           Automate your forms effortlessly.

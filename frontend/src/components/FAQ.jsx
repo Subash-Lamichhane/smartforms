@@ -33,7 +33,7 @@ FAQItem.propTypes = {
 
 const FAQ = () => {
   return (
-    <div className="my-16 px-96 bg-white">
+    <div className="my-16 px-24 lg:px-96 bg-white">
       <div className="flex flex-col items-start justify-center space-y-2 mb-6">
         <div className="text-sm font-bold text-custom-blue flex justify-start items-center gap-1">
           <FaQuestionCircle />

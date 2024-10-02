@@ -2,7 +2,7 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 
 const HowItWorks = () => {
   return (
-    <div className="px-96 my-16 space-y-10">
+    <div className="px-24 lg:px-96 my-16 space-y-10">
       <div className="flex flex-col space-y-6">
         <div className="space-y-2">
           <div className="text-sm font-bold text-custom-blue flex justify-start items-center gap-1">

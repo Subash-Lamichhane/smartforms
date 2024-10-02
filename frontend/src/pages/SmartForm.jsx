@@ -9,14 +9,14 @@ import UserNameEntry from "../components/UserNameEntry"; // Import UserNameEntry
 import { useParams } from "react-router-dom";
 
 const SmartForm = () => {
-  const {id} = useParams();
+  const { id } = useParams();
 
   const [smartFormData, setSmartFormData] = useState(null); // Store the smartForm data from the API
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Track the current question index
   const [selectedOption, setSelectedOption] = useState(null); // Store the selected option
   const [answers, setAnswers] = useState([]); // Store the user's answers
   const [progress, setProgress] = useState(0); // Progress in percentage
-  const [result, setResult] = useState();
+  const [result, setResult] = useState(null); // Store quiz result after submission
   const [userName, setUserName] = useState(""); // Store user name
   const [smartFormStarted, setSmartFormStarted] = useState(false); // Track if smartForm has started
 
@@ -33,7 +33,7 @@ const SmartForm = () => {
     };
 
     fetchSmartFormData();
-  }, []);
+  }, [id]);
 
   // Handle when an option is selected
   const handleSelect = (index) => {
@@ -41,24 +41,20 @@ const SmartForm = () => {
   };
 
   const handleNext = () => {
-    
     if (selectedOption !== null) {
       // Get the current answer
       const currentAnswer =
         smartFormData.questions[currentQuestionIndex].options[selectedOption];
   
-      // If it's the last question, we must first save the final answer, then submit
-      if (currentQuestionIndex === smartFormData.questions.length - 1) {
-        // Update the answers with the final answer and then submit the form
-        setAnswers((prevAnswers) => {
-          const updatedAnswers = [...prevAnswers, currentAnswer];
-          handleSubmit(updatedAnswers); // Pass updated answers to handleSubmit
-          return updatedAnswers;
-        });
-      } else {
-        // For all other questions, simply update the answers and move to the next question
-        setAnswers((prevAnswers) => [...prevAnswers, currentAnswer]);
+      // Temporarily store updated answers
+      const updatedAnswers = [...answers, currentAnswer];
   
+      // If it's the last question, submit the form
+      if (currentQuestionIndex === smartFormData.questions.length - 1) {
+        handleSubmit(updatedAnswers); // Pass updated answers to handleSubmit
+      } else {
+        // Update the answers and move to the next question
+        setAnswers(updatedAnswers);
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         setSelectedOption(null); // Reset the selected option for the next question
   
@@ -70,24 +66,23 @@ const SmartForm = () => {
     }
   };
   
-  
+
   const handleSubmit = async (updatedAnswers) => {
     const submissionData = {
       quizId: smartFormData._id, // Use the actual quiz ID from your smartFormData
-      studentName: userName,     // Use the dynamic user name
-      answers: updatedAnswers,          // The array of answers provided by the user
+      studentName: userName, // Use the dynamic user name
+      answers: updatedAnswers, // The array of answers provided by the user
     };
 
     try {
       // Send the POST request with the correct payload
-      const response = await axios.post("http://localhost:3000/quiz/submit", submissionData);
-  
+      const response = await axios.post(
+        "http://localhost:3000/quiz/submit",
+        submissionData
+      );
+
       // Set the result to the response from the server
       setResult(response.data);
-  
-      // Log the response and simulate further actions like storing the result
-      // console.log("Quiz submitted. Score:", response.data);
-
     } catch (error) {
       console.error("Error submitting quiz:", error);
     }
@@ -107,50 +102,48 @@ const SmartForm = () => {
   return (
     <div>
       <NavBar />
-      <div className="px-96 h-[80vh] flex flex-col justify-center item-center">
-        {!result && (
-          <div>
-            <div className="flex ">
-              <span className="font-black text-xs text-custom-blue flex justify-center items-center gap-1 my-2">
-                <SiAnswer />
-                <span className="tracking-wider">
-                  Remember to answer honestly!
-                </span>
-              </span>
-            </div>
-            <div className="font-black text-5xl mb-4">{smartFormData.name}</div>
-          </div>
-        )}
-
-        {!smartFormStarted ? (
-          <UserNameEntry onStartSmartForm={handleStartSmartForm} /> // Render UserNameEntry
+      <div className="px-24 lg:px-96 h-[80vh] flex flex-col justify-center item-center">
+        {result ? (
+          // If the quiz is finished, display the result
+          <FormResult
+            quizName={smartFormData.name}
+            totalQuestions={smartFormData.questions.length}
+            correctAnswers={result.correctAnswersCount}
+            wrongAnswers={result.incorrectAnswersCount}
+            score={result.score}
+          />
         ) : (
-          <div className="space-y-8">
-            {result ? (
-              <FormResult
-                quizName={smartFormData.name}
-                totalQuestions={smartFormData.questions.length}
-                correctAnswers={result.correctAnswersCount}
-                wrongAnswers={result.incorrectAnswersCount}
-                score={result.score}
-              />
+          <>
+            {/* Display quiz details and progress bar if the quiz hasn't ended */}
+            <div>
+              <div className="flex">
+                <span className="font-black text-xs text-custom-blue flex justify-center items-center gap-1 my-2">
+                  <SiAnswer />
+                  <span className="tracking-wider">
+                    Remember to answer honestly!
+                  </span>
+                </span>
+              </div>
+              <div className="font-black text-5xl mb-4">{smartFormData.name}</div>
+            </div>
+
+            {!smartFormStarted ? (
+              // If the quiz hasn't started, show the username entry form
+              <UserNameEntry onStartSmartForm={handleStartSmartForm} />
             ) : (
-              <>
+              // Once the quiz starts, show the questions and progress
+              <div className="space-y-8">
                 <ProgressBar progress={progress} />
                 <FormQuestion
-                  question={
-                    smartFormData.questions[currentQuestionIndex].question
-                  }
-                  options={
-                    smartFormData.questions[currentQuestionIndex].options
-                  }
+                  question={smartFormData.questions[currentQuestionIndex].question}
+                  options={smartFormData.questions[currentQuestionIndex].options}
                   selectedOption={selectedOption}
                   onSelect={handleSelect}
                   onNext={handleNext}
                 />
-              </>
+              </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>
