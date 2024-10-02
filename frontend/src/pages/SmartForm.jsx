@@ -21,7 +21,7 @@ const SmartForm = () => {
   useEffect(() => {
     const fetchSmartFormData = async () => {
       try {
-        const response = await axios.get("/data/form.json");
+        const response = await axios.get("http://localhost:3000/quiz/66fbe8c15b7a7ac76585b8ad");
         setSmartFormData(response.data); // Save the smartForm data
         setProgress(0); // Initialize the progress bar
       } catch (error) {
@@ -37,62 +37,57 @@ const SmartForm = () => {
     setSelectedOption(index); // Update the selected option
   };
 
-  // Move to the next question
   const handleNext = () => {
+    
     if (selectedOption !== null) {
-      // Save the current answer
+      // Get the current answer
       const currentAnswer =
         smartFormData.questions[currentQuestionIndex].options[selectedOption];
-      setAnswers((prevAnswers) => [...prevAnswers, currentAnswer]);
-
-      // If it's not the last question, move to the next one
-      if (currentQuestionIndex < smartFormData.questions.length - 1) {
+  
+      // If it's the last question, we must first save the final answer, then submit
+      if (currentQuestionIndex === smartFormData.questions.length - 1) {
+        // Update the answers with the final answer and then submit the form
+        setAnswers((prevAnswers) => {
+          const updatedAnswers = [...prevAnswers, currentAnswer];
+          handleSubmit(updatedAnswers); // Pass updated answers to handleSubmit
+          return updatedAnswers;
+        });
+      } else {
+        // For all other questions, simply update the answers and move to the next question
+        setAnswers((prevAnswers) => [...prevAnswers, currentAnswer]);
+  
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-        setSelectedOption(null); // Reset selected option for the new question
-
+        setSelectedOption(null); // Reset the selected option for the next question
+  
         // Update the progress bar
         setProgress(
           ((currentQuestionIndex + 1) / smartFormData.questions.length) * 100
         );
-      } else {
-        // If it's the last question, submit the smartForm
-        handleSubmit();
       }
     }
   };
-
-  // Submit the smartForm and store the result
-  const handleSubmit = async () => {
+  
+  
+  const handleSubmit = async (updatedAnswers) => {
     const submissionData = {
-      smartFormId: smartFormData._id,
-      studentName: userName, // Use the dynamic user name
-      answers: answers,
+      quizId: smartFormData._id, // Use the actual quiz ID from your smartFormData
+      studentName: userName,     // Use the dynamic user name
+      answers: updatedAnswers,          // The array of answers provided by the user
     };
 
-    console.log(submissionData);
+    try {
+      // Send the POST request with the correct payload
+      const response = await axios.post("http://localhost:3000/quiz/submit", submissionData);
+  
+      // Set the result to the response from the server
+      setResult(response.data);
+  
+      // Log the response and simulate further actions like storing the result
+      // console.log("Quiz submitted. Score:", response.data);
 
-    // Mocked response instead of using axios.post
-    const mockResponse = {
-      message: "SmartForm submitted successfully.",
-      score: 100, // Mock score
-      correctAnswers: 4,
-      totalQuestions: 6,
-    };
-
-    setResult(mockResponse);
-
-    // Simulate a delay like an API call
-    setTimeout(() => {
-      console.log("SmartForm submitted. Score:", mockResponse.score);
-
-      // Store result in a local variable (simulating storing in public/data)
-      const resultData = {
-        score: mockResponse.score,
-        answers: answers,
-      };
-
-      console.log("Result Data:", resultData);
-    }, 500);
+    } catch (error) {
+      console.error("Error submitting quiz:", error);
+    }
   };
 
   // Handle starting the smartForm
@@ -130,10 +125,10 @@ const SmartForm = () => {
           <div className="space-y-8">
             {result ? (
               <FormResult
-                smartFormName={smartFormData.name}
+                quizName={smartFormData.name}
                 totalQuestions={smartFormData.questions.length}
-                correctAnswers={result.correctAnswers}
-                wrongAnswers={result.totalQuestions - result.correctAnswers}
+                correctAnswers={result.correctAnswersCount}
+                wrongAnswers={result.incorrectAnswersCount}
                 score={result.score}
               />
             ) : (
