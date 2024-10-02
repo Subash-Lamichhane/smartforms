@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import SmartForm from "./pages/SmartForm";
 import ResponsePage from "./pages/ResponsePage";
 import CreateSmartFormPage from "./pages/CreateSmartFormPage";  
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <>
               <NavBar />
               <SmartFormEntry />
+              <Footer />
             </>
           }
         />

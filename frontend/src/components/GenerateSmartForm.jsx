@@ -2,6 +2,7 @@ import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotPopup } from "@copilotkit/react-ui";
 import "@copilotkit/react-ui/styles.css";
 import GenerateSmartFormExtend from "./GenerateSmartFormExtend";
+import Footer from "./Footer";
 
 const GenerateSmartForm = () => {
   return (
@@ -18,10 +19,10 @@ const GenerateSmartForm = () => {
           }}
         />
       </div>
-      <GenerateSmartFormExtend/>
+      <GenerateSmartFormExtend />
+      <Footer />
     </CopilotKit>
   );
 };
-
 
 export default GenerateSmartForm;

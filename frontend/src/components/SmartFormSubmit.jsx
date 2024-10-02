@@ -1,75 +1,88 @@
-import React, { useState } from 'react'
+import { useState } from "react";
+import { IoCloudUpload } from "react-icons/io5";
+import SmartFormSuccess from "./SmartFormSuccess";
 
-const SmartFormSubmit = () => {
-    const [quizPassword, setQuizPassword] = useState("");
-    const [quizId, setQuizId] = useState(null);
-    const [quizName, setQuizName] = useState("");
+const SmartFormSubmit = ({ quizzes }) => {
+  const [quizPassword, setQuizPassword] = useState("");
+  const [quizId, setQuizId] = useState("");
+  const [quizName, setQuizName] = useState("");
 
-    const handleSaveQuiz = async () => {
-        if (!quizName || !quizPassword) {
-          alert("Please provide both the quiz name and password.");
-          return;
-        }
-    
-        const quizData = {
-          name: quizName,
-          password: quizPassword,
-          questions: quizzes,
-        };
-        console.log(quizData)
-        try {
-          const response = await fetch("http://localhost:3000/quiz/add", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(quizData),
-          });
-    
-          const result = await response.json();
-    
-          if (response.ok) {
-            setQuizId(result._id);  // Set the saved quiz ID
-            alert("Quiz saved successfully!");
-          } else {
-            alert("Error saving quiz: " + result.message);
-          }
-        } catch (error) {
-          alert("Error: " + error.message);
-        }
-      };
+  const handleSaveQuiz = async () => {
+    if (!quizName || !quizPassword) {
+      alert("Please provide both the quiz name and password.");
+      return;
+    }
 
-    return (
-        <div className="bg-gray-50 p-6 rounded-lg shadow-md mt-8 border border-gray-200">
-            <h3 className="text-2xl font-semibold mb-4">Save Your Quiz</h3>
-            <input
+    const quizData = {
+      name: quizName,
+      password: quizPassword,
+      questions: quizzes,
+    };
+    console.log(quizData);
+    try {
+      const response = await fetch("http://localhost:3000/quiz/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(quizData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setQuizId(result._id); // Set the saved quiz ID
+      }
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  };
+
+  return (
+    <div className="pb-20 min-h-[70vh] flex justify-center items-center">
+      <div className="p-6 pt-10 flex flex-col items-center">
+        {!quizId ? (
+          <>
+            <div className="space-y-1 text-center">
+              <div className="flex items-center space-x-2 justify-center text-xs">
+                <IoCloudUpload className="text-custom-blue" size={20} />
+                <span className="font-semibold text-custom-blue uppercase tracking-widest text-xs">
+                  Save your SmartForms
+                </span>
+              </div>
+              <h1 className="text-3xl font-extrabold text-gray-800">
+                Save your SmartForms
+              </h1>
+            </div>
+            <div className="mt-8 space-y-4 w-full max-w-sm">
+              <input
                 type="text"
-                placeholder="Quiz Name"
+                placeholder="Form Name"
                 value={quizName}
                 onChange={(e) => setQuizName(e.target.value)}
-                className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <input
+                className="border border-custom-blue rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-custom-blue w-64 md:w-80 lg:w-96"
+              />
+              <input
                 type="password"
-                placeholder="Quiz Password"
+                placeholder="Form Password"
                 value={quizPassword}
                 onChange={(e) => setQuizPassword(e.target.value)}
-                className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <button
+                className="border border-custom-blue rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-custom-blue w-64 md:w-80 lg:w-96"
+              />
+              <button
                 onClick={handleSaveQuiz}
-                className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out"
-            >
-                Save Quiz
-            </button>
-            {quizId && (
-                <div className="mt-6 text-center text-green-600 my-32">
-                    <h3 className="text-2xl font-semibold">Quiz Saved Successfully!</h3>
-                    <p className="mt-2">Quiz ID: {quizId}</p>
-                </div>
-            )}
-        </div>
-    )
-}
+                className="w-full py-3 bg-custom-blue font-black tracking-widest text-white rounded-lg hover:bg-custom-blue/80 transition duration-300 ease-in-out text-base"
+              >
+                Save SmartForm
+              </button>
+            </div>
+          </>
+        ) : (
+          <SmartFormSuccess quizId={quizId} quizName={quizName} />
+        )}
+      </div>
+    </div>
+  );
+};
 
-export default SmartFormSubmit
+export default SmartFormSubmit;

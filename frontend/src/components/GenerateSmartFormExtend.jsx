@@ -92,9 +92,9 @@ const GenerateSmartFormExtend = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto py-4 space-y-10">
+        <div className="px-24 lg:px-96  py-4 space-y-10">
             {submitted ?
-                <SmartFormSubmit />
+                <SmartFormSubmit quizzes={quizzes}/>
                 :
                 <>
                     {/* Oneliner message with icon */}
@@ -112,7 +112,7 @@ const GenerateSmartFormExtend = () => {
                         <h1 className="text-3xl font-black">Create Smart Forms</h1>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-4 min-h-[50vh]">
                         {quizzes.length > 0 ? (
 
                             quizzes.map((quiz, index) => (
@@ -190,44 +190,46 @@ const GenerateSmartFormExtend = () => {
                             ))
 
                         ) : (
-                            <div className="text-gray-700 text-sm">
-                                <p className="mb-4">
-                                    With CopilotKit, you can easily start building{" "}
-                                    <strong>interactive</strong> and{" "}
-                                    <strong>intelligent Smart Forms</strong> without any hassle.
-                                    Whether you want to create quizzes, surveys, or any type of form,
-                                    CopilotKit is here to help.
-                                </p>
-                                <p className="mb-4">
-                                    Here are some of the benefits of using CopilotKit:
-                                </p>
-                                <ul className="list-disc list-inside mb-4">
-                                    <li>
-                                        <strong>Easy to Use:</strong> No complicated setups or technical
-                                        skills required.
-                                    </li>
-                                    <li>
-                                        <strong>Powerful AI Assistance:</strong> Get guidance throughout
-                                        the entire process.
-                                    </li>
-                                    <li>
-                                        <strong>Focus on Your Ideas:</strong> Let CopilotKit handle the
-                                        heavy lifting while you concentrate on what matters most.
-                                    </li>
-                                </ul>
-                                <p>
-                                    So why wait? <strong>Get started</strong> today by generating your
-                                    first Smart Form and see how easy it is to bring your ideas to
-                                    life. With CopilotKit, creating forms has never been this
-                                    effortless!
-                                </p>
+                            <div className="flex justify-start items-center">
+                                <div className="text-gray-700 text-sm">
+                                    <p className="mb-4">
+                                        With CopilotKit, you can easily start building{" "}
+                                        <strong>interactive</strong> and{" "}
+                                        <strong>intelligent Smart Forms</strong> without any hassle.
+                                        Whether you want to create quizzes, surveys, or any type of form,
+                                        CopilotKit is here to help.
+                                    </p>
+                                    <p className="mb-4">
+                                        Here are some of the benefits of using CopilotKit:
+                                    </p>
+                                    <ul className="list-disc list-inside mb-4">
+                                        <li>
+                                            <strong>Easy to Use:</strong> No complicated setups or technical
+                                            skills required.
+                                        </li>
+                                        <li>
+                                            <strong>Powerful AI Assistance:</strong> Get guidance throughout
+                                            the entire process.
+                                        </li>
+                                        <li>
+                                            <strong>Focus on Your Ideas:</strong> Let CopilotKit handle the
+                                            heavy lifting while you concentrate on what matters most.
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        So why wait? <strong>Get started</strong> today by generating your
+                                        first Smart Form and see how easy it is to bring your ideas to
+                                        life. With CopilotKit, creating forms has never been this
+                                        effortless!
+                                    </p>
+                                </div>
                             </div>
                         )}
                         {quizzes.length > 0 &&
                             <div className="w-full flex justify-center">
                                 <button
                                     type="submit"
-                                    className="bg-custom-blue/90 text-white font-bold px-6 py-2 rounded-md hover:bg-custom-blue transition duration-300"
+                                    className="bg-custom-blue/90 text-white font-bold px-6 py-2 rounded-lg tracking-widest hover:bg-custom-blue transition duration-300 my-6"
                                     onClick={() => { setSubmitted(true) }}
                                 >
                                     Submit

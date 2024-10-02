@@ -13,7 +13,7 @@ const SmartFormEntry = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-[88vh] space-y-8 bg-gray-50 p-4">
+    <div className="flex flex-col items-center justify-center h-[80vh] space-y-8 p-4">
       <h2 className="text-3xl md:text-4xl font-extrabold text-center ">
         Ready to take smartform?
       </h2>
@@ -46,7 +46,7 @@ const SmartFormEntry = () => {
       <p className="text-gray-500 text-sm mt-4">
         Don’t have a SmartForm ID?{" "}
         <a
-          href="/create-smartform"
+          href="/smartform/create"
           className="text-custom-blue hover:underline"
         >
           Create one here.
