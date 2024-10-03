@@ -8,20 +8,7 @@ import SmartFormSubmit from "./SmartFormSubmit";
 import "@copilotkit/react-ui/styles.css";
 
 const GenerateSmartFormExtend = () => {
-    const [quizzes, setQuizzes] = useState([
-        {
-          "question": "What is the value of 2 + 2?",
-          "options": ["1", "2", "3", "4"],
-          "hint": "Think of the basic addition.",
-          "answer": "4"
-        },
-        {
-          "question": "What is the capital of France?",
-          "options": ["Berlin", "Madrid", "Paris", "Rome"],
-          "hint": "It's also known as the city of lights.",
-          "answer": "Paris"
-        }
-      ]);
+    const [quizzes, setQuizzes] = useState([]);
     const [editing, setEditing] = useState({ questionIndex: null, optionIndex: null }); // Track editing states
     const [tempQuestion, setTempQuestion] = useState("");
     const [tempOption, setTempOption] = useState("");
