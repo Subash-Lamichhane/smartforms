@@ -14,8 +14,8 @@ const GenerateSmartForm = () => {
       >
         <CopilotPopup
           labels={{
-            title: "Your Assistant",
-            initial: "Hi! Ask me anything?",
+            title: "Smartform Assistant",
+            initial: "Hey! Curious about smartforms? Feel free to ask anything about generating them, I'm here to help!",
           }}
         />
       </div>

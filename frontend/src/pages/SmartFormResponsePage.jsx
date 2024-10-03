@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { CopilotKit } from "@copilotkit/react-core";
+import { CopilotPopup } from "@copilotkit/react-ui";
+import "@copilotkit/react-ui/styles.css";
 import axios from "axios";
 import SmartFormResponseLogin from "../components/SmartFormResponseLogin";
 import SmartFormResponse from "../components/SmartFormResponse";
@@ -30,12 +33,29 @@ const SmartFormResponsePage = () => {
   return (
     <>
       <NavBar />
-      <div className="flex flex-col justify-center items-center h-[80vh] w-full px-96">
+
+      <div className="flex flex-col justify-center items-center min-h-[80vh] w-full px-24 lg:px-96 pb-10 pt-10">
         {!results ? (
           // Display the form to enter quiz ID and password if no results are fetched yet
           <SmartFormResponseLogin error={error} handleSubmit={handleSubmit} />
         ) : (
-          <SmartFormResponse results={results} setResults={setResults} formName={"Biology"}/>
+          <>
+            <CopilotKit runtimeUrl="http://localhost:3000/api">
+              <div
+                style={{
+                  "--copilot-kit-primary-color": "#0077ff",
+                }}
+              >
+                <CopilotPopup
+                  labels={{
+                    title: "Smartform Assistant",
+                    initial: "Hey there! Ready to dive into your results? Ask me anything you'd like to know!",
+                  }}
+                />
+              </div>
+              <SmartFormResponse constantResults={results} formName={"Biology"} />
+            </CopilotKit>
+          </>
         )}
       </div>
       <Footer />
