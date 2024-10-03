@@ -30,12 +30,12 @@ const SmartFormResponsePage = () => {
   return (
     <>
       <NavBar />
-      <div className="flex flex-col justify-center items-center h-[80vh]">
+      <div className="flex flex-col justify-center items-center h-[80vh] w-full px-96">
         {!results ? (
           // Display the form to enter quiz ID and password if no results are fetched yet
           <SmartFormResponseLogin error={error} handleSubmit={handleSubmit} />
         ) : (
-          <SmartFormResponse results={results} setResults={setResults} />
+          <SmartFormResponse results={results} setResults={setResults} formName={"Biology"}/>
         )}
       </div>
       <Footer />
