@@ -46,7 +46,7 @@ const SmartFormEntry = () => {
       <p className="text-gray-500 text-sm mt-4">
         Don’t have a SmartForm ID?{" "}
         <a
-          href="/smartform/create"
+          href="/smartforms/create"
           className="text-custom-blue hover:underline"
         >
           Create one here.
