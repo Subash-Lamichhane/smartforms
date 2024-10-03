@@ -33,7 +33,6 @@ const SmartFormResponsePage = () => {
   return (
     <>
       <NavBar />
-
       <div className="flex flex-col justify-center items-center min-h-[80vh] w-full px-24 lg:px-96 pb-10 pt-10">
         {!results ? (
           // Display the form to enter quiz ID and password if no results are fetched yet

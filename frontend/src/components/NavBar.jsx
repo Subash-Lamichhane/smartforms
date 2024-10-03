@@ -18,8 +18,13 @@ const NavBar = () => {
           </li>
           <li className="cursor-pointer hover:text-blue-500">
             <Link to="/smartforms/create">Create</Link>
+          </li>{" "}
+          <li className="cursor-pointer hover:text-blue-500">
+            <Link to="/smartforms/">Forms</Link>
+          </li>{" "}
+          <li className="cursor-pointer hover:text-blue-500">
+            <Link to="/smartforms/responses">Responses</Link>
           </li>
-          <li className="cursor-pointer hover:text-blue-500">Demo</li>
         </ul>
       </div>
       <a href="https://github.com/Subash-Lamichhane">

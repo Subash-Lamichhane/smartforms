@@ -27,6 +27,7 @@ function App() {
               <SmartFormEntry />
               <Footer />
             </>
+            
           }
         />
       </Routes>

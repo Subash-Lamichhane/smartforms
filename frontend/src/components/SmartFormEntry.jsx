@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SmartFormEntry = () => {
   const [formId, setFormId] = useState("");
@@ -45,12 +45,12 @@ const SmartFormEntry = () => {
       </form>
       <p className="text-gray-500 text-sm mt-4">
         Don’t have a SmartForm ID?{" "}
-        <a
-          href="/smartforms/create"
+        <Link
+          to="/smartforms/create"
           className="text-custom-blue hover:underline"
         >
           Create one here.
-        </a>
+        </Link>
       </p>
     </div>
   );

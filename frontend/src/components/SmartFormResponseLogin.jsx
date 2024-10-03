@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaLockOpen } from "react-icons/fa"; // Import the lock open icon
+import { Link } from "react-router-dom";
 
 const SmartFormResponseLogin = ({ error, handleSubmit }) => {
   const [quizId, setQuizId] = useState(""); // To store the entered SmartForm ID
@@ -60,12 +61,12 @@ const SmartFormResponseLogin = ({ error, handleSubmit }) => {
       {/* Link for creating a SmartForm ID */}
       <p className="text-gray-500 text-sm mt-4">
         Don’t have a SmartForm ID?{" "}
-        <a
-          href="/smartforms/create"
+        <Link
+          to="/smartforms/create"
           className="text-custom-blue hover:underline"
         >
           Create one here.
-        </a>
+        </Link>
       </p>
     </div>
   );
