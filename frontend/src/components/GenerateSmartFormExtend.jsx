@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCopilotReadable, useCopilotAction } from "@copilotkit/react-core";
+import { useCopilotChatSuggestions } from "@copilotkit/react-ui";
 import { FaCheckCircle } from "react-icons/fa"; // Importing the tick mark icon
 import { IoCreate } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
@@ -7,11 +8,25 @@ import SmartFormSubmit from "./SmartFormSubmit";
 import "@copilotkit/react-ui/styles.css";
 
 const GenerateSmartFormExtend = () => {
-    const [quizzes, setQuizzes] = useState([]);
+    const [quizzes, setQuizzes] = useState([
+        {
+          "question": "What is the value of 2 + 2?",
+          "options": ["1", "2", "3", "4"],
+          "hint": "Think of the basic addition.",
+          "answer": "4"
+        },
+        {
+          "question": "What is the capital of France?",
+          "options": ["Berlin", "Madrid", "Paris", "Rome"],
+          "hint": "It's also known as the city of lights.",
+          "answer": "Paris"
+        }
+      ]);
     const [editing, setEditing] = useState({ questionIndex: null, optionIndex: null }); // Track editing states
     const [tempQuestion, setTempQuestion] = useState("");
     const [tempOption, setTempOption] = useState("");
     const [submitted, setSubmitted] = useState(false)
+
     useCopilotReadable({
         description: "The current set of quiz questions are: ",
         value: quizzes,
@@ -127,7 +142,7 @@ const GenerateSmartFormExtend = () => {
                                             />
                                             <button
                                                 onClick={() => handleSaveQuestion(index)}
-                                                className="bg-blue-500 text-white px-4 py-2 rounded"
+                                                className="bg-blue-500 text-white px-4 py-2 rounded mb-2"
                                             >
                                                 Save Question
                                             </button>
