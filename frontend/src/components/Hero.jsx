@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="px-6 md:px-20 lg:px-40 xl:px-96 py-12 h-[80vh] flex items-center justify-center ">
+    <div className="px-6 md:px-20 lg:px-40 xl:px-96 pt-24 pb-12  flex flex-col items-center justify-center ">
       <div className="flex flex-col gap-4 text-center md:text-left">
         {/* Top Line */}
         <div className="text-custom-blue font-semibold text-sm flex justify-center md:justify-start items-center tracking-wide">
@@ -24,6 +24,10 @@ const Hero = () => {
           <Link to="/smartforms/create">Launch SmartForm</Link>
           <GoArrowUpRight className="text-2xl" />
         </button>
+      </div>
+
+      <div className="mt-24 rounded-lg shadow-lg overflow-hidden">
+        <img src="/img/hero.gif" alt="Hero" className="w-full h-auto" />
       </div>
     </div>
   );
