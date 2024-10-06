@@ -1,4 +1,4 @@
-# SmartForms
+# <p align="center">SmartForms</p>
 
 <p align="center">
     <a href="https://github.com/Subash-Lamichhane/smartforms" target="blank">
@@ -33,7 +33,9 @@ SmartForms is a modern form builder that simplifies the process of creating and 
 
 ## Demo
 
-Watch a full demo of SmartForms here: [SmartForms Demo](#)
+<!-- Watch a full demo of SmartForms here: [SmartForms Demo](#) -->
+<video src="https://github.com/user-attachments/assets/f05e858a-3f27-46db-83cd-b2da7972d7be
+"></video>
 
 ### Teacher Point of View
 - **Launching SmartForms:** Teachers begin by opening the Landing page and clicking on "Launch SmartForms."
@@ -128,7 +130,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 **_This project was created for Quira Quest 20: Hacktober Preptember_**
 
-To explore Quira, visit: [https://quira.sh/](https://quira.sh/?utm_source=susheel)
+To explore Quira, visit: [https://quira.sh/]()
 
 ### Support Me! 🌟
 

@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 
 const SmartFormResponsePage = () => {
   const [results, setResults] = useState(null); // To store the fetched quiz results
+  const [quizName, setQuizName] = useState(""); // To store the quiz name
   const [error, setError] = useState(null); // To handle any errors
 
   // Handle form submission
@@ -20,13 +21,15 @@ const SmartFormResponsePage = () => {
         password,
       });
 
-      // Save the fetched results to state
-      setResults(response.data);
+      // Save the fetched results and quiz name to state
+      setResults(response.data.results);
+      setQuizName(response.data.quizName);
       setError(null); // Clear any existing errors
     } catch (err) {
       console.log(err);
       setError("Invalid quiz ID or password. Please try again.");
       setResults(null);
+      setQuizName(""); // Reset the quiz name if there's an error
     }
   };
 
@@ -52,7 +55,8 @@ const SmartFormResponsePage = () => {
                   }}
                 />
               </div>
-              <SmartFormResponse constantResults={results} formName={"Biology"} />
+              {/* Display the fetched quiz name dynamically */}
+              <SmartFormResponse constantResults={results} formName={quizName} />
             </CopilotKit>
           </>
         )}

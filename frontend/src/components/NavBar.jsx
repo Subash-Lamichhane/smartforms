@@ -27,7 +27,7 @@ const NavBar = () => {
           </li>
         </ul>
       </div>
-      <a href="https://github.com/Subash-Lamichhane">
+      <a href="https://github.com/Subash-Lamichhane/smartforms">
         <div className="text-4xl">
           <FaGithub />
         </div>

@@ -104,7 +104,6 @@ exports.submitQuiz = async (req, res) => {
 };
 
 
-// API to fetch quiz results by quiz ID and password
 exports.getQuizResults = async (req, res) => {
     const { quizId, password } = req.body;
 
@@ -121,8 +120,11 @@ exports.getQuizResults = async (req, res) => {
             return res.status(404).json({ message: 'No results found for this quiz.' });
         }
 
-        // Return the results, including correct and incorrect answers count
-        res.json(result.students);
+        // Return the quiz name and the results, including correct and incorrect answers count
+        res.json({
+            quizName: quiz.name,
+            results: result.students
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
