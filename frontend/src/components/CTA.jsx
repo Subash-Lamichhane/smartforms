@@ -12,7 +12,7 @@ const CTA = () => {
           Save time with SmartForms powered by CopilotKit.
         </p>
         <button className="bg-custom-blue hover:bg-blue-600 transition duration-300 text-white font-semibold px-6 py-3 rounded-full text-lg flex items-center gap-2 shadow-md tracking-wider">
-          <Link to="/">Launch SmartForm</Link>
+          <Link to="/smartforms/create">Launch SmartForm</Link>
           <GoArrowUpRight />
         </button>
       </div>
