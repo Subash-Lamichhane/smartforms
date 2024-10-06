@@ -130,9 +130,11 @@ This project is licensed under the [MIT License](LICENSE).
 
 **_This project was created for Quira Quest 20: Hacktober Preptember_**
 
-To explore Quira, visit: [https://quira.sh/]()
+To explore Quira, visit: [https://quira.sh/](https://quira.sh/)
 
+### Twitter post:
+Click [here](https://x.com/SubashLmch/status/1842875105120067682) for twitter post 
 ### Support Me! 🌟
 
-- **Vote for me on Quira**: [Vote here!]()
+- **Vote for me on Quira**: [Vote here!](https://quira.sh/repo/Subash-Lamichhane-smartforms-865844236)
 - **Star my GitHub repo** to show your support!
