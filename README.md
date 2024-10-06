@@ -35,6 +35,18 @@ SmartForms is a modern form builder that simplifies the process of creating and 
 
 Watch a full demo of SmartForms here: [SmartForms Demo](#)
 
+### Teacher Point of View
+- **Launching SmartForms:** Teachers begin by opening the Landing page and clicking on "Launch SmartForms."
+- **Creating a SmartForm:** With the aid of CopilotKit, teachers create a SmartForm and submit it.
+- **Sharing:** A link for the SmartForm is generated and displayed, which the teacher can then share with students for completion.
+- **Reviewing Responses:** To review student responses, teachers navigate to `http://localhost:5173/smartforms/responses`. Here, they are required to enter the SmartForm ID and password to access and view the responses.
+
+### Student Point of View
+- **Accessing the Form:** Students start by opening the link provided by their teacher.
+- **Entering Details:** Students are prompted to input their name and continue to the SmartForm.
+- **Completing the SmartForm:** Students answer the questions provided in the SmartForm and submit their responses upon completion.
+
+
 ## Installation
 
 For installation instructions, please refer to the `INSTALLATION.md` file. Click [here](./INSTALLATION.md) to navigate to it.
@@ -51,7 +63,7 @@ Get started by following these steps to set up both the frontend and backend for
    ```
 2. Install dependencies:
    ```bash
-   yarn install
+   yarn
    ```
 3. Start the development server:
    ```bash
@@ -73,11 +85,11 @@ Get started by following these steps to set up both the frontend and backend for
    Replace `<YOUR_GOOGLE_API_KEY>` with your actual Google API key.
 3. Install dependencies:
    ```bash
-   yarn install
+   yarn 
    ```
 4. Start the backend server:
    ```bash
-   yarn run dev
+   yarn run start
    ```
 
 Both servers need to be running concurrently for the application to function fully.
