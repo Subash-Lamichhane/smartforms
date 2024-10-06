@@ -9,21 +9,43 @@ const HowItWorks = () => {
             <FaRegCircleCheck />
             <span>Simple to use</span>
           </div>
-          <div className="text-4xl font-extrabold text-gray-800">How it works</div>
+          <div className="text-4xl font-extrabold text-gray-800">
+            How it works
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        <div className="bg-gray-100 shadow-md rounded-2xl h-64 flex items-center justify-center col-span-2 p-6 hover:shadow-lg transition-transform duration-300">
-          <img src="/img/one.png" alt="Step 1" className="h-full w-full object-cover rounded-2xl" />
+        <div className="bg-gray-100 shadow-md rounded-2xl h-80 flex flex-col items-start gap-4 justify-center col-span-3 p-8 hover:shadow-lg transition-transform duration-300">
+          <p className="font-black tracking-widest text-gray-600 text-base">1. Create with Copilotkit</p>
+          <img
+            src="/img/Creating Smart Form with Copilotkit.png"
+            alt="Create Smartform with Coplilotkit"
+            className="h-full w-full object-cover rounded-2xl"
+          />
         </div>
-        <div className="bg-gray-100 shadow-md rounded-2xl h-64 flex items-center justify-center col-span-3 p-6 hover:shadow-lg transition-transform duration-300">
-          <img src="/img/two.png" alt="Step 2" className="h-full w-full object-cover rounded-2xl" />
+        <div className="bg-gray-100 shadow-md rounded-2xl h-80 flex flex-col items-start gap-4 justify-center col-span-2 p-12 hover:shadow-lg transition-transform duration-300 ">
+          <p className="font-black tracking-widest text-gray-600 text-base">2. SmartForm Created</p>
+          <img
+            src="/img/SmartFrom Created Successfully.png"
+            alt="SmartForm created successfully"
+            className="h-full w-full object-cover rounded-2xl"
+          />
         </div>
-        <div className="bg-gray-100 shadow-md rounded-2xl h-64 flex items-center justify-center col-span-3 p-6 hover:shadow-lg transition-transform duration-300">
-          <img src="/img/three.png" alt="Step 3" className="h-full w-full object-cover rounded-2xl" />
+        <div className="bg-gray-100 shadow-md rounded-2xl h-80 flex flex-col items-start gap-4 justify-center col-span-2 p-6 hover:shadow-lg transition-transform duration-300">
+          <p className="font-black tracking-widest text-gray-600 text-base">3. Access SmartForm</p>
+          <img
+            src="/img/User Taking Smart Form.png"
+            alt="User Taking the SmartFrom"
+            className="h-full w-full object-cover rounded-2xl"
+          />
         </div>
-        <div className="bg-gray-100 shadow-md rounded-2xl h-64 flex items-center justify-center col-span-2 p-6 hover:shadow-lg transition-transform duration-300">
-          <img src="/img/four.png" alt="Step 4" className="h-full w-full object-cover rounded-2xl" />
+        <div className="bg-gray-100 shadow-md rounded-2xl h-80 flex flex-col items-start gap-4 justify-center col-span-3 p-6 hover:shadow-lg transition-transform duration-300">
+          <p className="font-black tracking-widest text-gray-600 text-base">4. Viewing Responses</p>
+          <img
+            src="/img/Smart Form Responses.png"
+            alt="SmartForm Responses"
+            className="h-full w-full object-cover rounded-2xl"
+          />
         </div>
       </div>
     </div>
